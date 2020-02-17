@@ -8,19 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>关于HashMap的一些自我学习内容 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本内容主要是自己实现HashMap的部分功能来更好的理解HashMap的底层和其原理。##全部代码public class Node1&lt;K,V&gt;{ int hash; K key; V value; Node1 next;}public class SexHashMap&lt;K,V&gt; {    Node1[] table;&#x2F;&#x2F;位桶数组，bucket array    int s">
+  <meta name="description" content="本内容主要是自己实现HashMap的部分功能来更好的理解HashMap的底层和其原理。（本内容主要为了自己复习时更方便理解代码）##全部代码public class Node1&lt;K,V&gt;{ int hash; K key; V value; Node1 next;}public class SexHashMap&lt;K,V&gt; { Node1[] table;&#x2F;&#x2F;位桶数组，buc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于HashMap的一些自我学习内容">
 <meta property="og:url" content="http://yoursite.com/2020/02/17/HashMap/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="本内容主要是自己实现HashMap的部分功能来更好的理解HashMap的底层和其原理。##全部代码public class Node1&lt;K,V&gt;{ int hash; K key; V value; Node1 next;}public class SexHashMap&lt;K,V&gt; {    Node1[] table;&#x2F;&#x2F;位桶数组，bucket array    int s">
+<meta property="og:description" content="本内容主要是自己实现HashMap的部分功能来更好的理解HashMap的底层和其原理。（本内容主要为了自己复习时更方便理解代码）##全部代码public class Node1&lt;K,V&gt;{ int hash; K key; V value; Node1 next;}public class SexHashMap&lt;K,V&gt; { Node1[] table;&#x2F;&#x2F;位桶数组，buc">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/LCW-lcw/cwhome/blob/master/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/put.png">
 <meta property="article:published_time" content="2020-02-17T08:39:40.771Z">
-<meta property="article:modified_time" content="2020-02-17T09:03:16.957Z">
+<meta property="article:modified_time" content="2020-02-17T10:11:26.948Z">
 <meta property="article:author" content="LCW">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/LCW-lcw/cwhome/blob/master/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/put.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -179,17 +177,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本内容主要是自己实现HashMap的部分功能来更好的理解HashMap的底层和其原理。<br>##全部代码<br>public class Node1&lt;K,V&gt;{</p>
+        <p>本内容主要是自己实现HashMap的部分功能来更好的理解HashMap的底层和其原理。<br>（本内容主要为了自己复习时更方便理解代码）<br>##全部代码<br>public class Node1&lt;K,V&gt;{</p>
 <pre><code>int hash;
 K key;
 V value;
-Node1 next;</code></pre><p>}<br>public class SexHashMap&lt;K,V&gt; {<br>    Node1[] table;//位桶数组，bucket array<br>    int size;//存放键值对的个数</p>
-<pre><code>public SexHashMap() {
-    table = new Node1[16];//长度一般定义为2的整数幂
-
-}
-
-public void put(K key, V value) {
+Node1 next;</code></pre><p>}<br>public class SexHashMap&lt;K,V&gt; {</p>
+<pre><code>Node1[] table;//位桶数组，bucket array
+int size;//存放键值对的个数</code></pre><p>   }<br>    public SexHashMap() {</p>
+<pre><code>table = new Node1[16];//长度一般定义为2的整数幂</code></pre><p>   }</p>
+<pre><code>public void put(K key, V value) {
     Node1 newNode = new Node1();
     newNode.hash = myHash(key.hashCode(), table.length);
     newNode.key = key;
@@ -213,9 +209,10 @@ public void put(K key, V value) {
                 lask = temp;
                 temp = (Node1) temp.next;
             }
-            lask.next = newNode;
+
             size++;
         }
+        lask.next = newNode;
     }
 }
 public V get(K key){
@@ -286,11 +283,52 @@ public static void main(String[] args) {
 
 }</code></pre><p>}</p>
 <p> public int myHash(int v, int length) {</p>
-<pre><code>    /*System.out.println(&quot;hash in myHash:&quot; + (v &amp; (length - 1)));//直接位运算，效率高
-    System.out.println(&quot;hash in myHash:&quot; + (v % (length)));//取模运算，效率低*/
-    return v &amp; (length - 1);
+<pre><code>/*System.out.println(&quot;hash in myHash:&quot; + (v &amp; (length - 1)));//直接位运算，效率高
+System.out.println(&quot;hash in myHash:&quot; + (v % (length)));//取模运算，效率低*/
+return v &amp; (length - 1);</code></pre><p>   }<br>首先Hashmap类似于是一个数组和链表的组合，哈希值决定了你写入一个数据他要存放在数组的哪里，因为<br>使用直接位与会比较高效，所以一般的创建内容选择2的幂次数比较好（16，32等等）。</p>
+<p>public void put(K key, V value) {</p>
+<pre><code>Node1 newNode = new Node1();
+newNode.hash = myHash(key.hashCode(), table.length);
+newNode.key = key;
+newNode.value = value;
+newNode.next = null;
+Node1 temp = table[newNode.hash];
+Node1 lask = null;//用于记录链表的最后一个数据
+if (temp == null) {
+    //原来的数组没有数据就直接加进去
+    table[newNode.hash] = newNode;
+} else {
+    //如果有对象，要遍历链表加在最后面
+    while (temp != null) {
+        //判断key是否重复，则覆盖
+        if (temp.key.equals(key)) {
+            System.out.println(&quot;Key重复了&quot;);
+            temp.value = value;
+            return;
+        } else {
+            //不重复，遍历
+            lask = temp;
+            temp = (Node1) temp.next;
+        }
 
-}</code></pre><p>首先Hashmap类似于是一个数组和链表的组合，哈希值决定了你写入一个数据他要存放在数组的哪里，因为<br>使用直接位与会比较高效，所以一般的创建内容选择2的幂次数比较好（16，32等等）。<br><img src="https://github.com/LCW-lcw/cwhome/blob/master/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/put.png" alt="image"><br>关于</p>
+        size++;
+    }
+    lask.next = newNode;
+}</code></pre><p>   }<br>   创建一个变量newNode来暂时存放数据，计算他的哈希值，创建中间变量temp赋予table[传入数据的哈希值]，<br>   然后将值存入，如果key值重复覆盖，没有就遍历链表，放在最后，用lask来存放最后一个数，然后再新的数据<br>   放在lask.next,这样就完成了HashMap数值的存入。<br>public V get(K key){</p>
+<pre><code>int hash=myHash(key.hashCode(),table.length);
+V value=null;
+if(table[hash]!=null){
+    Node1 temp=table[hash];
+    while (temp != null) {
+        if(temp.key.equals(key)){
+            value=(V) temp.value;
+            break;
+        }else {
+            temp=(Node1) temp.next;
+         }
+     }
+ }
+return value;</code></pre><p>   }<br>   找到哈希值对应的数组内，遍历其链表找到相同的值放回。</p>
 
       
 
