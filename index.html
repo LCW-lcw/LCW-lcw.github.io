@@ -60,7 +60,7 @@
 			</ul>
 		</nav>
 <nav>
-    <a>总文章数 3</a>
+    <a>总文章数 4</a>
 </nav>
 		<nav class="header-smart-menu">
     		
@@ -155,17 +155,99 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-对二叉树的学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+        
+        <center><p>
+  
+    <h1 itemprop="name">
+      <a class="article-title_code_ant" href="/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/">对二叉树的学习</a>
+    </h1>
+  
+</p></center>
+        
+        <a href="/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
+  	<time datetime="2020-02-23T05:23:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>内容仅为自己复习使用</p>
+<h2 id="节点类"><a href="#节点类" class="headerlink" title="节点类"></a>节点类</h2><p>static final class Entry&lt;T extends Comparable<T>&gt;<br>{</p>
+<pre><code> //保存的数据
+ private T item;
+ //左子树
+ private Entry&lt;T&gt; left;
+ //右子树
+ private Entry&lt;T&gt; right;
+ //父节点
+ private Entry&lt;T&gt; parent;
+ Entry(T item,Entry&lt;T&gt; parent){
+     this.item = item;
+     this.parent = parent;     
+}</code></pre><p>}<br>   一棵树的节点类要有数据，左右节点树和父亲节点。</p>
+        
+          <a class="article-more-a" href="/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-HashMap" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
+        
+        <center><p>
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/17/HashMap/">关于HashMap的一些自我学习内容</a>
+      <a class="article-title_code_ant" href="/2020/02/17/HashMap/">关于HashMap的一些自我学习内容</a>
     </h1>
   
-
+</p></center>
         
         <a href="/2020/02/17/HashMap/" class="archive-article-date">
   	<time datetime="2020-02-17T08:39:40.771Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-17</time>
@@ -179,155 +261,10 @@
 <pre><code>int hash;
 K key;
 V value;
-Node1 next;</code></pre><p>}<br>public class SexHashMap&lt;K,V&gt; {</p>
-<pre><code>Node1[] table;//位桶数组，bucket array
-int size;//存放键值对的个数</code></pre><p>   }<br>    public SexHashMap() {</p>
-<pre><code>table = new Node1[16];//长度一般定义为2的整数幂</code></pre><p>   }</p>
-<pre><code>public void put(K key, V value) {
-    Node1 newNode = new Node1();
-    newNode.hash = myHash(key.hashCode(), table.length);
-    newNode.key = key;
-    newNode.value = value;
-    newNode.next = null;
-    Node1 temp = table[newNode.hash];
-    Node1 lask = null;//用于记录链表的最后一个数据
-    if (temp == null) {
-        //原来的数组没有数据就直接加进去
-        table[newNode.hash] = newNode;
-    } else {
-        //如果有对象，要遍历链表加在最后面
-        while (temp != null) {
-            //判断key是否重复，则覆盖
-            if (temp.key.equals(key)) {
-                System.out.println(&quot;Key重复了&quot;);
-                temp.value = value;
-                return;
-            } else {
-                //不重复，遍历
-                lask = temp;
-                temp = (Node1) temp.next;
-            }
-
-            size++;
-        }
-        lask.next = newNode;
-    }
-}
-public V get(K key){
-    int hash=myHash(key.hashCode(),table.length);
-    V value=null;
-    if(table[hash]!=null){
-        Node1 temp=table[hash];
-        while (temp != null) {
-            if(temp.key.equals(key)){
-                value=(V) temp.value;
-                break;
-            }else {
-                temp=(Node1) temp.next;
-            }
-        }
-    }
-    return value;
-
-}
-
-public int myHash(int v, int length) {
-    /*System.out.println(&quot;hash in myHash:&quot; + (v &amp; (length - 1)));//直接位运算，效率高
-    System.out.println(&quot;hash in myHash:&quot; + (v % (length)));//取模运算，效率低*/
-    return v &amp; (length - 1);
-}
-
-public void remove(K key){
-    int hash=myHash(key.hashCode(),table.length);
-    Node1 temp=table[hash];
-    if(temp!=null){
-        if(temp.next==null){
-            table[hash]=null;
-        }else{
-
-        }
-    }
-}
-@Override
-public String toString() {
-    StringBuffer sb = new StringBuffer(&quot;{&quot;);
-    for (int i = 0; i &lt;table.length ; i++) {
-        Node1 temp=table[i];
-        while(temp!=null){
-            sb.append(temp.key+&quot;:&quot;+temp.value+&quot;,&quot;);
-            temp=(Node1) temp.next;
-        }
-    }
-    sb.setCharAt(sb.length()-1,&apos;}&apos;);
-    return sb.toString();
-
-}
-
-public static void main(String[] args) {
-    SexHashMap&lt;Integer,Integer&gt; map = new SexHashMap&lt;&gt;();
-    map.put(1, 1);
-    map.put(2, 2);
-    map.put(3, 3);
-    map.put(1, 4);
-    map.put(16,5);
-    map.put(19,4);
-    map.put(30,7);
-    map.put(17, 8);
-    map.put(18, 9);
-
-    System.out.println(map);
-    System.out.println(map.get(1));
-
-
-}</code></pre><p>}</p>
-<p> public int myHash(int v, int length) {</p>
-<pre><code>/*System.out.println(&quot;hash in myHash:&quot; + (v &amp; (length - 1)));//直接位运算，效率高
-System.out.println(&quot;hash in myHash:&quot; + (v % (length)));//取模运算，效率低*/
-return v &amp; (length - 1);</code></pre><p>   }<br>首先Hashmap类似于是一个数组和链表的组合，哈希值决定了你写入一个数据他要存放在数组的哪里，因为<br>使用直接位与会比较高效，所以一般的创建内容选择2的幂次数比较好（16，32等等）。</p>
-<p>public void put(K key, V value) {</p>
-<pre><code>Node1 newNode = new Node1();
-newNode.hash = myHash(key.hashCode(), table.length);
-newNode.key = key;
-newNode.value = value;
-newNode.next = null;
-Node1 temp = table[newNode.hash];
-Node1 lask = null;//用于记录链表的最后一个数据
-if (temp == null) {
-    //原来的数组没有数据就直接加进去
-    table[newNode.hash] = newNode;
-} else {
-    //如果有对象，要遍历链表加在最后面
-    while (temp != null) {
-        //判断key是否重复，则覆盖
-        if (temp.key.equals(key)) {
-            System.out.println(&quot;Key重复了&quot;);
-            temp.value = value;
-            return;
-        } else {
-            //不重复，遍历
-            lask = temp;
-            temp = (Node1) temp.next;
-        }
-
-        size++;
-    }
-    lask.next = newNode;
-}</code></pre><p>   }<br>   创建一个变量newNode来暂时存放数据，计算他的哈希值，创建中间变量temp赋予table[传入数据的哈希值]，<br>   然后将值存入，如果key值重复覆盖，没有就遍历链表，放在最后，用lask来存放最后一个数，然后再新的数据<br>   放在lask.next,这样就完成了HashMap数值的存入。<br>public V get(K key){</p>
-<pre><code>int hash=myHash(key.hashCode(),table.length);
-V value=null;
-if(table[hash]!=null){
-    Node1 temp=table[hash];
-    while (temp != null) {
-        if(temp.key.equals(key)){
-            value=(V) temp.value;
-            break;
-        }else {
-            temp=(Node1) temp.next;
-         }
-     }
- }
-return value;</code></pre><p>   }<br>   找到哈希值对应的数组内，遍历其链表找到相同的值放回。</p>
-
+Node1 next;</code></pre><p>}</p>
+        
+          <a class="article-more-a" href="/2020/02/17/HashMap/#more">more >></a>
+        
       
 
       
@@ -374,12 +311,14 @@ return value;</code></pre><p>   }<br>   找到哈希值对应的数组内，遍�
     
       <header class="article-header">
         
+        
+        <center><p>
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/14/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">第一篇博客文章</a>
+      <a class="article-title_code_ant" href="/2020/01/14/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">第一篇博客文章</a>
     </h1>
   
-
+</p></center>
         
         <a href="/2020/01/14/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="archive-article-date">
   	<time datetime="2020-01-14T06:11:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-14</time>
@@ -437,12 +376,14 @@ return value;</code></pre><p>   }<br>   找到哈希值对应的数组内，遍�
     
       <header class="article-header">
         
+        
+        <center><p>
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/14/hello-world/">Hello World</a>
+      <a class="article-title_code_ant" href="/2020/01/14/hello-world/">Hello World</a>
     </h1>
   
-
+</p></center>
         
         <a href="/2020/01/14/hello-world/" class="archive-article-date">
   	<time datetime="2020-01-14T04:55:20.027Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-14</time>
