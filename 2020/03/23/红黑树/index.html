@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>第一篇博客文章 | Hexo</title>
+  <title>红黑树的自我理解学习（1） | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="主要是重新整理了一下对于主题的调整和学习，对于yilia主题大部分内容都在https:&#x2F;&#x2F;www.cnblogs.com&#x2F;aoguai&#x2F;p&#x2F;11781505.html上有很多的提示。">
+  <meta name="description" content="##红黑树的特性性质1：节点是红色或黑色。性质2：根节点是黑色。性质3：每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)性质4：从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 ##红黑树的节点类    public class RBTNode&lt;T extends Comparable&gt; {        boolean color;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第一篇博客文章">
-<meta property="og:url" content="http://yoursite.com/2020/01/14/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/index.html">
+<meta property="og:title" content="红黑树的自我理解学习（1）">
+<meta property="og:url" content="http://yoursite.com/2020/03/23/%E7%BA%A2%E9%BB%91%E6%A0%91/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="主要是重新整理了一下对于主题的调整和学习，对于yilia主题大部分内容都在https:&#x2F;&#x2F;www.cnblogs.com&#x2F;aoguai&#x2F;p&#x2F;11781505.html上有很多的提示。">
+<meta property="og:description" content="##红黑树的特性性质1：节点是红色或黑色。性质2：根节点是黑色。性质3：每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)性质4：从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 ##红黑树的节点类    public class RBTNode&lt;T extends Comparable&gt; {        boolean color;">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-01-14T06:11:16.000Z">
-<meta property="article:modified_time" content="2020-01-14T06:30:17.383Z">
+<meta property="article:published_time" content="2020-03-23T05:03:28.000Z">
+<meta property="article:modified_time" content="2020-03-23T06:42:05.645Z">
 <meta property="article:author" content="LCW">
 <meta name="twitter:card" content="summary">
   
@@ -157,7 +157,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-第一篇博客文章" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-红黑树" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -166,20 +166,114 @@
         <center><p>
   
     <h1 class="article-title_code_ant" itemprop="name">
-      第一篇博客文章
+      红黑树的自我理解学习（1）
     </h1>
   
 </p></center>
         
-        <a href="/2020/01/14/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="archive-article-date">
-  	<time datetime="2020-01-14T06:11:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-14</time>
+        <a href="/2020/03/23/%E7%BA%A2%E9%BB%91%E6%A0%91/" class="archive-article-date">
+  	<time datetime="2020-03-23T05:03:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>主要是重新整理了一下对于主题的调整和学习，对于yilia主题大部分内容都在<br><a href="https://www.cnblogs.com/aoguai/p/11781505.html上有很多的提示。" target="_blank" rel="noopener">https://www.cnblogs.com/aoguai/p/11781505.html上有很多的提示。</a></p>
+        <p>##红黑树的特性<br>性质1：节点是红色或黑色。<br>性质2：根节点是黑色。<br>性质3：每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)<br>性质4：从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。</p>
+<p>##红黑树的节点类<br>    public class RBTNode&lt;T extends Comparable<T>&gt; {<br>        boolean color;        // 颜色<br>        T key;                // 关键字(键值)<br>        RBTNode<T> left;    // 左孩子<br>        RBTNode<T> right;    // 右孩子<br>        RBTNode<T> parent;    // 父结点</p>
+<pre><code>public RBTNode(T key, boolean color, RBTNode&lt;T&gt; parent, RBTNode&lt;T&gt; left, RBTNode&lt;T&gt; right) {
+    this.key = key;
+    this.color = color;
+    this.parent = parent;
+    this.left = left;
+    this.right = right;
+}</code></pre><p>##RBTree类<br>public class RBTree&lt;T extends Comparable<T>&gt; {</p>
+<pre><code>private RBTNode&lt;T&gt; mRoot;    // 根结点
+private static final boolean RED   = false;
+private static final boolean BLACK = true;   
+    public RBTree() {
+        mRoot=null;
+    }</code></pre><p>##左旋节点x<br> /*</p>
+<pre><code> * 对红黑树的节点(x)进行左旋转
+ *
+ * 左旋示意图(对节点x进行左旋)：
+ *      px                              px
+ *     /                               /
+ *    x                               y
+ *   /  \      --(左旋)-.           / \                #
+ *  lx   y                          x  ry
+ *     /   \                       /  \
+ *    ly   ry                     lx  ly
+ *
+ *
+ */
+private void leftRotate(RBTNode&lt;T&gt; x) {
+    // 设置x的右孩子为y
+    RBTNode&lt;T&gt; y = x.right;
+
+    // 将 “y的左孩子” 设为 “x的右孩子”；
+    // 如果y的左孩子非空，将 “x” 设为 “y的左孩子的父亲”
+    x.right = y.left;
+    if (y.left != null)
+        y.left.parent = x;
+
+    // 将 “x的父亲” 设为 “y的父亲”
+    y.parent = x.parent;
+
+    if (x.parent == null) {
+        this.mRoot = y;            // 如果 “x的父亲” 是空节点，则将y设为根节点
+    } else {
+        if (x.parent.left == x)
+            x.parent.left = y;    // 如果 x是它父节点的左孩子，则将y设为“x的父节点的左孩子”
+        else
+            x.parent.right = y;    // 如果 x是它父节点的右孩子，则将y设为“x的父节点的右孩子”
+    }
+
+    // 将 “x” 设为 “y的左孩子”
+    y.left = x;
+    // 将 “x的父节点” 设为 “y”
+    x.parent = y;
+}</code></pre><p>左旋主要思路：1.将x的右儿子y的左儿子设为自己的右儿子（y的左儿子不为要设其父亲节点为X)，2.x的父亲节点设为y的父亲节点（为Null即为根节点），3.<br>判断x是其父节点的哪边儿子，将y设为其相同边的儿子，4.将x设为y的左儿子，x的父亲节点设为y。<br>##右旋x节点<br>/*</p>
+<pre><code> * 对红黑树的节点(y)进行右旋转
+ *
+ * 右旋示意图(对节点y进行左旋)：
+ *            py                               py
+ *           /                                /
+ *          y                                x
+ *         /  \      --(右旋)-.            /  \                     #
+ *        x   ry                           lx   y
+ *       / \                                   / \                   #
+ *      lx  rx                                rx  ry
+ *
+ */
+private void rightRotate(RBTNode&lt;T&gt; y) {
+    // 设置x是当前节点的左孩子。
+    RBTNode&lt;T&gt; x = y.left;
+
+    // 将 “x的右孩子” 设为 “y的左孩子”；
+    // 如果&quot;x的右孩子&quot;不为空的话，将 “y” 设为 “x的右孩子的父亲”
+    y.left = x.right;
+    if (x.right != null)
+        x.right.parent = y;
+
+    // 将 “y的父亲” 设为 “x的父亲”
+    x.parent = y.parent;
+
+    if (y.parent == null) {
+        this.mRoot = x;            // 如果 “y的父亲” 是空节点，则将x设为根节点
+    } else {
+        if (y == y.parent.right)
+            y.parent.right = x;    // 如果 y是它父节点的右孩子，则将x设为“y的父节点的右孩子”
+        else
+            y.parent.left = x;    // (y是它父节点的左孩子) 将x设为“x的父节点的左孩子”
+    }
+
+    // 将 “y” 设为 “x的右孩子”
+    x.right = y;
+
+    // 将 “y的父节点” 设为 “x”
+    y.parent = x;
+}</code></pre><p>右旋的主要思路：1.将x的右儿子设为y的左儿子(x的右儿子不为空的话，设其父亲节点为y)，2.y的父亲节点设为x的父亲节点（为Null即为根节点），3.<br>        判断y是其父节点的哪边儿子，将x设为其相同边的儿子，4.将y设为x的右儿子，y的父亲节点设为x。</p>
 
       
 
@@ -259,7 +353,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/01/14/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/%E7%BA%A2%E9%BB%91%E6%A0%91/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -273,15 +367,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          对二叉树的学习
-        
-      </div>
-    </a>
   
+    <a href="/2020/02/27/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

@@ -16,7 +16,7 @@
 <meta property="og:description" content="内容仅为自己复习使用 节点类static final class Entry&lt;T extends Comparable&gt;{  &#x2F;&#x2F;保存的数据  private T item;  &#x2F;&#x2F;左子树  private Entry&lt;T&gt; left;  &#x2F;&#x2F;右子树  private Entry&lt;T&gt; right;  &#x2F;&#x2F;父节点  private Entry&lt;T&gt;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-23T05:23:35.000Z">
-<meta property="article:modified_time" content="2020-02-23T07:29:24.099Z">
+<meta property="article:modified_time" content="2020-02-23T07:36:21.909Z">
 <meta property="article:author" content="LCW">
 <meta name="twitter:card" content="summary">
   
@@ -64,7 +64,7 @@
 			</ul>
 		</nav>
 <nav>
-    <a>总文章数 4</a>
+    <a>总文章数 5</a>
 </nav>
 		<nav class="header-smart-menu">
     		
@@ -355,8 +355,8 @@ private Entry&lt;T&gt; successor(Entry&lt;T&gt; delEntry) {
     }
     return r;
 }</code></pre><p>   1.没有子节点的情况，要判断是否存在这个数，然后创建一个他的父亲节点，如果这个数是根节点就直接Null,如果不是，就判断他是<br>   父节点的左还是右删除。</p>
-<p>   2.如果只有左（右）节点，先判断他是不是根节点，是把它的左（右）设为根节点，不是，判断他是删除数的父节点的左还是右节点，将删除<br>   的数的左（右）节点，设为父节的节点相应的节点处，并设置他的父节点为删除节点的父节点。</p>
-<p>   3.有2个节点时，找到其后继节点（就是他的右节点的最左节点）将他的值取代删除节点如果他的后续节点就是他的右节点，要判断后继节点是否有右节点，<br>   有要将其设为删除节点的右节点，没有就设为空，如果不是删除节点的右节点就一定是左点，那就将后继节点的父节点的左节点设为空。</p>
+<p>   2.如果只有左（右）节点，先判断他是不是根节点，是把它的左（右）设为根节点，不是，判断他是删除数的父节点的左还是右节点，<br>   将删除的数的左（右）节点，设为父节的节点相应的节点处，并设置他的父节点为删除节点的父节点。</p>
+<p>   3.有2个节点时，找到其后继节点（就是他的右节点的最左节点）将他的值取代删除节点如果他的后续节点就是他的右节点，要判断后<br>   继节点是否有右节点，有要将其设为删除节点的右节点，没有就设为空，如果不是删除节点的右节点就一定是左点，那就将后继节点<br>   的父节点的左节点设为空。</p>
 <p>   ##中序遍历<br>       public void midIterator(Entry<T> e){<br>           if (e != null){<br>               midIterator(e.left);<br>               System.out.print(e.item + “ “);<br>               midIterator(e.right);<br>           }<br>       }</p>
 <p>##主函数<br> public static void main(String[] args) {</p>
 <pre><code>BinaryTree&lt;Integer&gt; binaryTree = new BinaryTree&lt;&gt;();
@@ -470,9 +470,18 @@ System.out.println();
   
 <nav id="article-nav">
   
+    <a href="/2020/02/27/HashMap/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          关于HashMap的一些自我学习内容
+        
+      </div>
+    </a>
   
-    <a href="/2020/02/17/HashMap/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">关于HashMap的一些自我学习内容</div>
+  
+    <a href="/2020/01/14/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第一篇博客文章</div>
       <i class="icon-circle-right"></i>
     </a>
   
