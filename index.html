@@ -60,7 +60,7 @@
 			</ul>
 		</nav>
 <nav>
-    <a>总文章数 5</a>
+    <a>总文章数 6</a>
 </nav>
 		<nav class="header-smart-menu">
     		
@@ -155,6 +155,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-nihao" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+        
+        <center><p>
+  
+    <h1 itemprop="name">
+      <a class="article-title_code_ant" href="/2020/03/30/nihao/">红黑树的自我理解学习（2）</a>
+    </h1>
+  
+</p></center>
+        
+        <a href="/2020/03/30/nihao/" class="archive-article-date">
+  	<time datetime="2020-03-30T07:00:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##相关检索设置类<br>//检索父亲</p>
+<pre><code>private RBTNode&lt;T&gt; parentOf(RBTNode&lt;T&gt; node) {
+    return node!=null ? node.parent : null;
+}</code></pre><p>//    检索节点颜色</p>
+<pre><code>private boolean colorOf(RBTNode&lt;T&gt; node) {
+    return node!=null ? node.color : BLACK;
+}</code></pre><p>//    判断是否为红色</p>
+<pre><code>private boolean isRed(RBTNode&lt;T&gt; node) {
+    return ((node!=null)&amp;&amp;(node.color==RED)) ? true : false;
+}</code></pre><p>//    判断是否为黑色</p>
+<pre><code>private boolean isBlack(RBTNode&lt;T&gt; node) {
+    return !isRed(node);
+}</code></pre><p>//    将节点设为黑色</p>
+<pre><code>private void setBlack(RBTNode&lt;T&gt; node) {
+    if (node!=null)
+        node.color = BLACK;
+}</code></pre><p>//    将节点设为红色</p>
+        
+          <a class="article-more-a" href="/2020/03/30/nihao/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/30/nihao/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-红黑树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -185,94 +268,10 @@
     this.parent = parent;
     this.left = left;
     this.right = right;
-}</code></pre><p>##RBTree类<br>public class RBTree&lt;T extends Comparable<T>&gt; {</p>
-<pre><code>private RBTNode&lt;T&gt; mRoot;    // 根结点
-private static final boolean RED   = false;
-private static final boolean BLACK = true;   
-    public RBTree() {
-        mRoot=null;
-    }</code></pre><p>##左旋节点x<br> /*</p>
-<pre><code> * 对红黑树的节点(x)进行左旋转
- *
- * 左旋示意图(对节点x进行左旋)：
- *      px                              px
- *     /                               /
- *    x                               y
- *   /  \      --(左旋)-.           / \                #
- *  lx   y                          x  ry
- *     /   \                       /  \
- *    ly   ry                     lx  ly
- *
- *
- */
-private void leftRotate(RBTNode&lt;T&gt; x) {
-    // 设置x的右孩子为y
-    RBTNode&lt;T&gt; y = x.right;
-
-    // 将 “y的左孩子” 设为 “x的右孩子”；
-    // 如果y的左孩子非空，将 “x” 设为 “y的左孩子的父亲”
-    x.right = y.left;
-    if (y.left != null)
-        y.left.parent = x;
-
-    // 将 “x的父亲” 设为 “y的父亲”
-    y.parent = x.parent;
-
-    if (x.parent == null) {
-        this.mRoot = y;            // 如果 “x的父亲” 是空节点，则将y设为根节点
-    } else {
-        if (x.parent.left == x)
-            x.parent.left = y;    // 如果 x是它父节点的左孩子，则将y设为“x的父节点的左孩子”
-        else
-            x.parent.right = y;    // 如果 x是它父节点的右孩子，则将y设为“x的父节点的右孩子”
-    }
-
-    // 将 “x” 设为 “y的左孩子”
-    y.left = x;
-    // 将 “x的父节点” 设为 “y”
-    x.parent = y;
-}</code></pre><p>左旋主要思路：1.将x的右儿子y的左儿子设为自己的右儿子（y的左儿子不为要设其父亲节点为X)，2.x的父亲节点设为y的父亲节点（为Null即为根节点），3.<br>判断x是其父节点的哪边儿子，将y设为其相同边的儿子，4.将x设为y的左儿子，x的父亲节点设为y。<br>##右旋x节点<br>/*</p>
-<pre><code> * 对红黑树的节点(y)进行右旋转
- *
- * 右旋示意图(对节点y进行左旋)：
- *            py                               py
- *           /                                /
- *          y                                x
- *         /  \      --(右旋)-.            /  \                     #
- *        x   ry                           lx   y
- *       / \                                   / \                   #
- *      lx  rx                                rx  ry
- *
- */
-private void rightRotate(RBTNode&lt;T&gt; y) {
-    // 设置x是当前节点的左孩子。
-    RBTNode&lt;T&gt; x = y.left;
-
-    // 将 “x的右孩子” 设为 “y的左孩子”；
-    // 如果&quot;x的右孩子&quot;不为空的话，将 “y” 设为 “x的右孩子的父亲”
-    y.left = x.right;
-    if (x.right != null)
-        x.right.parent = y;
-
-    // 将 “y的父亲” 设为 “x的父亲”
-    x.parent = y.parent;
-
-    if (y.parent == null) {
-        this.mRoot = x;            // 如果 “y的父亲” 是空节点，则将x设为根节点
-    } else {
-        if (y == y.parent.right)
-            y.parent.right = x;    // 如果 y是它父节点的右孩子，则将x设为“y的父节点的右孩子”
-        else
-            y.parent.left = x;    // (y是它父节点的左孩子) 将x设为“x的父节点的左孩子”
-    }
-
-    // 将 “y” 设为 “x的右孩子”
-    x.right = y;
-
-    // 将 “y的父节点” 设为 “x”
-    y.parent = x;
-}</code></pre><p>右旋的主要思路：1.将x的右儿子设为y的左儿子(x的右儿子不为空的话，设其父亲节点为y)，2.y的父亲节点设为x的父亲节点（为Null即为根节点），3.<br>        判断y是其父节点的哪边儿子，将x设为其相同边的儿子，4.将y设为x的右儿子，y的父亲节点设为x。</p>
-
+}</code></pre>
+        
+          <a class="article-more-a" href="/2020/03/23/%E7%BA%A2%E9%BB%91%E6%A0%91/#more">more >></a>
+        
       
 
       

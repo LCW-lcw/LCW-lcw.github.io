@@ -16,7 +16,7 @@
 <meta property="og:description" content="##红黑树的特性性质1：节点是红色或黑色。性质2：根节点是黑色。性质3：每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)性质4：从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 ##红黑树的节点类    public class RBTNode&lt;T extends Comparable&gt; {        boolean color;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-23T05:03:28.000Z">
-<meta property="article:modified_time" content="2020-03-23T06:42:05.645Z">
+<meta property="article:modified_time" content="2020-03-30T07:20:15.934Z">
 <meta property="article:author" content="LCW">
 <meta name="twitter:card" content="summary">
   
@@ -64,7 +64,7 @@
 			</ul>
 		</nav>
 <nav>
-    <a>总文章数 5</a>
+    <a>总文章数 6</a>
 </nav>
 		<nav class="header-smart-menu">
     		
@@ -187,7 +187,8 @@
     this.parent = parent;
     this.left = left;
     this.right = right;
-}</code></pre><p>##RBTree类<br>public class RBTree&lt;T extends Comparable<T>&gt; {</p>
+}</code></pre><a id="more"></a>
+<p>##RBTree类<br>public class RBTree&lt;T extends Comparable<T>&gt; {</p>
 <pre><code>private RBTNode&lt;T&gt; mRoot;    // 根结点
 private static final boolean RED   = false;
 private static final boolean BLACK = true;   
@@ -366,6 +367,15 @@ private void rightRotate(RBTNode&lt;T&gt; y) {
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/03/30/nihao/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          红黑树的自我理解学习（2）
+        
+      </div>
+    </a>
   
   
     <a href="/2020/02/27/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
