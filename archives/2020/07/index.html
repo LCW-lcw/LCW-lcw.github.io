@@ -6,17 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>对二叉树的学习 | Hexo</title>
+  <title>Archives: 2020/7 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="内容仅为自己复习使用 节点类static final class Entry&lt;T extends Comparable&gt;{  &#x2F;&#x2F;保存的数据  private T item;  &#x2F;&#x2F;左子树  private Entry&lt;T&gt; left;  &#x2F;&#x2F;右子树  private Entry&lt;T&gt; right;  &#x2F;&#x2F;父节点  private Entry&lt;T&gt;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="对二叉树的学习">
-<meta property="og:url" content="http://yoursite.com/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/archives/2020/07/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="内容仅为自己复习使用 节点类static final class Entry&lt;T extends Comparable&gt;{  &#x2F;&#x2F;保存的数据  private T item;  &#x2F;&#x2F;左子树  private Entry&lt;T&gt; left;  &#x2F;&#x2F;右子树  private Entry&lt;T&gt; right;  &#x2F;&#x2F;父节点  private Entry&lt;T&gt;">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-02-23T05:23:35.000Z">
-<meta property="article:modified_time" content="2020-02-23T07:36:21.909Z">
 <meta property="article:author" content="LCW">
 <meta name="twitter:card" content="summary">
   
@@ -157,364 +153,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-对二叉树的学习" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-        
-        <center><p>
+            
   
-    <h1 class="article-title_code_ant" itemprop="name">
-      对二叉树的学习
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/07/15/%E6%A0%87%E7%AD%BE/" class="archive-article-date">
+  	<time datetime="2020-07-15T12:40:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-15</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/07/15/%E6%A0%87%E7%AD%BE/">标签</a>
     </h1>
   
-</p></center>
-        
-        <a href="/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-02-23T05:23:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>内容仅为自己复习使用</p>
-<h2 id="节点类"><a href="#节点类" class="headerlink" title="节点类"></a>节点类</h2><p>static final class Entry&lt;T extends Comparable<T>&gt;<br>{</p>
-<pre><code> //保存的数据
- private T item;
- //左子树
- private Entry&lt;T&gt; left;
- //右子树
- private Entry&lt;T&gt; right;
- //父节点
- private Entry&lt;T&gt; parent;
- Entry(T item,Entry&lt;T&gt; parent){
-     this.item = item;
-     this.parent = parent;     
-}</code></pre><p>}<br>   一棵树的节点类要有数据，左右节点树和父亲节点。</p>
-<a id="more"></a>
-<p> ##put函数<br>   public T put(T item){</p>
-<pre><code>      //每次添加数据的时候都是从根节点向下遍历
-      Entry&lt;T&gt; t = root;
-      size++;
-      if (t == null){
-          //当前的叉树树的为空，将新节点设置为根节点，父节点为null
-          root = new Entry&lt;&gt;(item,null);
-          return root.item;
-      }
-      //自然排序结果，如果传入的数据小于当前节点返回-1，大于当前节点返回1，否则返回0
-      int ret = 0;
-      //记录父节点
-      Entry&lt;T&gt; p = t;
-      while (t != null){
-          //与当前节点比较
-          ret = item.compareTo(t.item);
-          p = t;
-          //插入节点比当前节点小，把当前节点设置为左子节点，然后与左子比较，以此类推找到合适的位置
-          if (ret &lt; 0)
-              t = t.left;
-              //大于当前节点
-          else if (ret &gt; 0)
-              t = t.right;
-          else {
-              //相等就把旧值覆盖掉
-              t.item = item;
-              return t.item;
-          }
-      }
-      //创建新节点
-      Entry&lt;T&gt; e = new Entry&lt;&gt;(item,p);
-      //根据比较结果将新节点放入合适的位置
-      if (ret &lt; 0)
-          p.left = e;
-      else
-          p.right = e;
-      return e.item;
-  }
-首先要判断是否已经有了根节点，没有那进来的数据就是根节点，如果有那就要进行遍历树，函数p用来记录放入数据节点的父亲节
-点，ret用来记录比较插入的节点和当前节点的数据大小，用comparTo()函数，0相等，-1小于，1大于，相同就覆盖返回推出Put,
-小于就把当前节点设为左节点，大于就是右节点，然后为插入的数据创建节点。</code></pre><h2 id="getEntry函数"><a href="#getEntry函数" class="headerlink" title="getEntry函数"></a>getEntry函数</h2><pre><code>private Entry&lt;T&gt; getEntry(T item){
-    Entry&lt;T&gt; t = root;
-    int ret;
-    //从根节点开始遍历
-    for (;t != null;){
-        ret = item.compareTo(t.item);
-        if (ret &lt; 0)
-            t = t.left;
-        else if (ret &gt; 0)
-            t = t.right;
-        else
-            return t;
-    }
-    return null;
-}</code></pre><h2 id="remove函数"><a href="#remove函数" class="headerlink" title="remove函数"></a>remove函数</h2><pre><code>/**
- * 删除元素
- * 删除元素如果细分的话，可以分为4中：没有子节点，只有左节点，只有右节点，有两个子节点
- * 1）没有子节点这种情况比较简单，直接删除就可以了
- * 2）只有左节点或右节点，这两种情况处理方式是一致的，只是方向相反，所以在一起讲了，
- * 将删除节点的父节点的左节点（右节点）指向删除节点的子节点，将左节点（右节点）指向删除节点的父节点
- * 3）有两个子节点，这种情况相对来说比较复杂一点：
- * 找到删除节点的前驱节点或后继节点，然后将前驱或后继节点的值赋给删除节点，然后将前驱或后继节点删除。本质是删除前驱或后继节点
- * 前驱节点的特点：
- * 1）删除的左子节点没有右子节点，那么左子节点即为前驱节点
- * 2）删除节点的左子节点有右子节点，那么最右边的最后一个节点即为前驱节点
- * 后继节点的特点：
- * 与前驱节点刚好相反，总是右子节点，或则右子节点的最左子节点;例如：删除节点为c ，那么前驱节点为 m，后继节点为n
- *                                          a
- *                                       /     \
- *                                    b          c
- *                                  / \         /  \
- *                                d    e       f    g
- *                              /  \  / \     / \   / \
- * @param item 删除元素       h   i  j  k   l   m n   o
- * @return 删除结果
- */</code></pre><p>   public boolean remove(T item){</p>
-<pre><code>       //获取删除节点
-       Entry&lt;T&gt; delEntry = getEntry(item);
-       if (delEntry == null) return false;
-       //删除节点的父节点
-       Entry&lt;T&gt; p = delEntry.parent;
-       size--;
-       //情况1：没有子节点
-       if (delEntry.left == null &amp;&amp; delEntry.right == null){
-           //删除节点为根节点
-           if (delEntry == root){
-               root = null;
-           }else {//非根节点
-               //删除的是父节点的左节点
-               if (delEntry == p.left){
-                   p.left = null;
-               }else {//删除右节点
-                   p.right = null;
-               }
-           }
-           //情况2：删除的节点只有左节点
-       }else if (delEntry.right == null){
-           Entry&lt;T&gt; lc = delEntry.left;
-           //删除的节点为根节点，将删除节点的左节点设置成根节点
-           if (p == null) {
-               lc.parent = null;
-               root = lc;
-           } else {//非根节点
-               if (delEntry == p.left){//删除左节点
-                   p.left = lc;
-               }else {//删除右节点
-                   p.right = lc;
-               }
-               lc.parent = p;
-           }
-           //情况3：删除节点只有右节点
-       }else if (delEntry.left == null){
-           Entry&lt;T&gt; rc = delEntry.right;
-           //删除根节点
-           if (p == null) {
-               rc.parent = null;
-               root = rc;
-           }else {//删除非根节点
-               if (delEntry == p.left)
-                   p.left = rc;
-               else
-                   p.right = rc;
-               rc.parent = p;
-           }
-           //情况4：删除节点有两个子节点
-       }else {//有两个节点,找到后继节点，将值赋给删除节点，然后将后继节点删除掉即可
-           Entry&lt;T&gt; successor = successor(delEntry);//获取到后继节点
-           delEntry.item = successor.item;
-           //后继节点为右子节点
-           if (delEntry.right == successor){
-               //右子节点有右子节点
-               if (successor.right != null) {
-                   delEntry.right = successor.right;
-                   successor.right.parent = delEntry;
-               }else {//右子节点没有子节点
-                   delEntry.right = null;
-               }
-           }else {//后继节点必定是左节点
-               successor.parent.left = null;
-           }
-           return true;
-       }
-       //让gc回收
-       delEntry.parent = null;
-       delEntry.left = null;
-       delEntry.right = null;
-       return true;
-   }
 
-/**
- * 查找后继节点
- * @param delEntry 删除节点
- * @return 后继节点
- */
-private Entry&lt;T&gt; successor(Entry&lt;T&gt; delEntry) {
-    Entry&lt;T&gt; r = delEntry.right;//r节点必定不为空
-    while (r.left != null){
-        r = r.left;
-    }
-    return r;
-}</code></pre><p>   1.没有子节点的情况，要判断是否存在这个数，然后创建一个他的父亲节点，如果这个数是根节点就直接Null,如果不是，就判断他是<br>   父节点的左还是右删除。</p>
-<p>   2.如果只有左（右）节点，先判断他是不是根节点，是把它的左（右）设为根节点，不是，判断他是删除数的父节点的左还是右节点，<br>   将删除的数的左（右）节点，设为父节的节点相应的节点处，并设置他的父节点为删除节点的父节点。</p>
-<p>   3.有2个节点时，找到其后继节点（就是他的右节点的最左节点）将他的值取代删除节点如果他的后续节点就是他的右节点，要判断后<br>   继节点是否有右节点，有要将其设为删除节点的右节点，没有就设为空，如果不是删除节点的右节点就一定是左点，那就将后继节点<br>   的父节点的左节点设为空。</p>
-<p>   ##中序遍历<br>       public void midIterator(Entry<T> e){<br>           if (e != null){<br>               midIterator(e.left);<br>               System.out.print(e.item + “ “);<br>               midIterator(e.right);<br>           }<br>       }</p>
-<p>##主函数<br> public static void main(String[] args) {</p>
-<pre><code>BinaryTree&lt;Integer&gt; binaryTree = new BinaryTree&lt;&gt;();
-//放数据
-binaryTree.put(73);
-binaryTree.put(22);
-binaryTree.put(532);
-binaryTree.put(62);
-binaryTree.put(72);
-binaryTree.put(243);
-binaryTree.put(42);
-binaryTree.put(3);
-binaryTree.put(12);
-binaryTree.put(52);
-//中序遍历
-System.out.print(&quot;中序遍历结果： &quot;);
-binaryTree.midIterator(binaryTree.getRoot());
-System.out.println();
-}
+        <div class="article-info info-on-right">
+          
+          
 
-中序遍历结果： 3 12 22 42 52 62 72 73 243 532 </code></pre>
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/02/27/HashMap/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          关于HashMap的一些自我学习内容
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/01/14/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">第一篇博客文章</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -537,8 +218,8 @@ System.out.println();
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
