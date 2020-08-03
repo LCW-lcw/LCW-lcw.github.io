@@ -60,7 +60,7 @@
 			</ul>
 		</nav>
 <nav>
-    <a>总文章数 8</a>
+    <a>总文章数 10</a>
 </nav>
 		<nav class="header-smart-menu">
     		
@@ -154,6 +154,192 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-微人事-验证码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+        
+        <center><p>
+  
+    <h1 itemprop="name">
+      <a class="article-title_code_ant" href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E9%AA%8C%E8%AF%81%E7%A0%81/">微人事-登入权限，验证码（一）</a>
+    </h1>
+  
+</p></center>
+        
+        <a href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E9%AA%8C%E8%AF%81%E7%A0%81/" class="archive-article-date">
+  	<time datetime="2020-08-02T06:56:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>####首先编写一个生成验证码图像的工具类VerificationCode<br><HR></p>
+<pre><code>public class VerificationCode{
+private int width = 100;// 生成验证码图片的宽度
+   private int height = 30;// 生成验证码图片的高度
+   private String[] fontNames = { &quot;宋体&quot;, &quot;楷体&quot;, &quot;隶书&quot;, &quot;微软雅黑&quot; };
+   private Color bgColor = new Color(255, 255, 255);// 定义验证码图片的背景颜色为白色
+   private Random random = new Random();
+   private String codes = &quot;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;
+   private String text;// 记录随机字符串
+
+   /**
+    * 获取一个随意颜色
+    * 
+    * @return
+    */
+   private Color randomColor() {
+       int red = random.nextInt(150);
+       int green = random.nextInt(150);
+       int blue = random.nextInt(150);
+       return new Color(red, green, blue);
+   }
+
+   /**
+    * 获取一个随机字体
+    * 
+    * @return
+    */
+   private Font randomFont() {
+       String name = fontNames[random.nextInt(fontNames.length)];
+       int style = random.nextInt(4);
+       int size = random.nextInt(5) + 24;
+       return new Font(name, style, size);
+   }
+
+   /**
+    * 获取一个随机字符
+    * 
+    * @return
+    */
+   private char randomChar() {
+       return codes.charAt(random.nextInt(codes.length()));
+   }
+
+   /**
+    * 创建一个空白的BufferedImage对象
+    * 
+    * @return
+    */
+   private BufferedImage createImage() {
+       BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+       Graphics2D g2 = (Graphics2D) image.getGraphics();
+       g2.setColor(bgColor);// 设置验证码图片的背景颜色
+       g2.fillRect(0, 0, width, height);
+       return image;
+   }</code></pre>
+        
+          <a class="article-more-a" href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E9%AA%8C%E8%AF%81%E7%A0%81/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E9%AA%8C%E8%AF%81%E7%A0%81/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-微人事开源项目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+        
+        <center><p>
+  
+    <h1 itemprop="name">
+      <a class="article-title_code_ant" href="/2020/07/31/%E5%BE%AE%E4%BA%BA%E4%BA%8B%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">微人事开源项目 </a>
+    </h1>
+  
+</p></center>
+        
+        <a href="/2020/07/31/%E5%BE%AE%E4%BA%BA%E4%BA%8B%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/" class="archive-article-date">
+  	<time datetime="2020-07-31T12:52:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##微人事开源项目学习整理<br><code>项目Github地址</code>：<a href="https://github.com/lenve/vhr" target="_blank" rel="noopener">https://github.com/lenve/vhr</a><br>##项目介绍<br>微人事是一个前后端分离的人力资源管理系统，项目采用 SpringBoot+Vue 开发，项目加入常见的企业级应用所涉及到的技术点，例如 Redis、RabbitMQ 等。<br>##后端技术栈<br>Spring Boot<br><br>Spring Security<br><br>MyBatis<br><br>MySQL<br><br>Redis<br><br>RabbitMQ<br><br>Spring Cache<br><br>WebSocket<br><br>…<br>##前端技术栈<br>Vue<br><br>ElementUI<br><br>axios<br><br>vue-router<br><br>Vuex<br><br>WebSocket<br><br>vue-cli4<br><br>…<br>##学习目标<br>能够完整理解项目代码，能够实现二次开发，部署。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/31/%E5%BE%AE%E4%BA%BA%E4%BA%8B%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-标签" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
