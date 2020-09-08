@@ -6,19 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>红黑树的自我理解学习（1） | Hexo</title>
+  <title>微人事-登入权限，验证码（一） | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##红黑树的特性性质1：节点是红色或黑色。性质2：根节点是黑色。性质3：每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)性质4：从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 ##红黑树的节点类    public class RBTNode&lt;T extends Comparable&gt; {        boolean color;">
+  <meta name="description" content="####首先编写一个生成验证码图像的工具类VerificationCode public class VerificationCode{ private int width &#x3D; 100;&#x2F;&#x2F; 生成验证码图片的宽度    private int height &#x3D; 30;&#x2F;&#x2F; 生成验证码图片的高度    private String[] fontNames &#x3D; { &quot;宋体&quot;, &amp;q">
 <meta property="og:type" content="article">
-<meta property="og:title" content="红黑树的自我理解学习（1）">
-<meta property="og:url" content="http://yoursite.com/2020/03/23/%E7%BA%A2%E9%BB%91%E6%A0%91/index.html">
+<meta property="og:title" content="微人事-登入权限，验证码（一）">
+<meta property="og:url" content="http://yoursite.com/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%8C%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="##红黑树的特性性质1：节点是红色或黑色。性质2：根节点是黑色。性质3：每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)性质4：从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 ##红黑树的节点类    public class RBTNode&lt;T extends Comparable&gt; {        boolean color;">
+<meta property="og:description" content="####首先编写一个生成验证码图像的工具类VerificationCode public class VerificationCode{ private int width &#x3D; 100;&#x2F;&#x2F; 生成验证码图片的宽度    private int height &#x3D; 30;&#x2F;&#x2F; 生成验证码图片的高度    private String[] fontNames &#x3D; { &quot;宋体&quot;, &amp;q">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-03-23T05:03:28.000Z">
-<meta property="article:modified_time" content="2020-03-30T07:20:15.934Z">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1491727/201809/1491727-20180928210108441-1822025819.png">
+<meta property="article:published_time" content="2020-08-02T06:56:00.000Z">
+<meta property="article:modified_time" content="2020-08-08T12:28:52.064Z">
 <meta property="article:author" content="LCW">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1491727/201809/1491727-20180928210108441-1822025819.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -157,7 +159,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-红黑树" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-微人事-登入权限，验证码（一）" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -166,115 +168,199 @@
         <center><p>
   
     <h1 class="article-title_code_ant" itemprop="name">
-      红黑树的自我理解学习（1）
+      微人事-登入权限，验证码（一）
     </h1>
   
 </p></center>
         
-        <a href="/2020/03/23/%E7%BA%A2%E9%BB%91%E6%A0%91/" class="archive-article-date">
-  	<time datetime="2020-03-23T05:03:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+        <a href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%8C%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2020-08-02T06:56:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##红黑树的特性<br>性质1：节点是红色或黑色。<br>性质2：根节点是黑色。<br>性质3：每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)<br>性质4：从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。</p>
-<p>##红黑树的节点类<br>    public class RBTNode&lt;T extends Comparable<T>&gt; {<br>        boolean color;        // 颜色<br>        T key;                // 关键字(键值)<br>        RBTNode<T> left;    // 左孩子<br>        RBTNode<T> right;    // 右孩子<br>        RBTNode<T> parent;    // 父结点</p>
-<pre><code>public RBTNode(T key, boolean color, RBTNode&lt;T&gt; parent, RBTNode&lt;T&gt; left, RBTNode&lt;T&gt; right) {
-    this.key = key;
-    this.color = color;
-    this.parent = parent;
-    this.left = left;
-    this.right = right;
-}</code></pre><a id="more"></a>
-<p>##RBTree类<br>public class RBTree&lt;T extends Comparable<T>&gt; {</p>
-<pre><code>private RBTNode&lt;T&gt; mRoot;    // 根结点
-private static final boolean RED   = false;
-private static final boolean BLACK = true;   
-    public RBTree() {
-        mRoot=null;
-    }</code></pre><p>##左旋节点x<br> /*</p>
-<pre><code> * 对红黑树的节点(x)进行左旋转
- *
- * 左旋示意图(对节点x进行左旋)：
- *      px                              px
- *     /                               /
- *    x                               y
- *   /  \      --(左旋)-.           / \                #
- *  lx   y                          x  ry
- *     /   \                       /  \
- *    ly   ry                     lx  ly
- *
- *
- */
-private void leftRotate(RBTNode&lt;T&gt; x) {
-    // 设置x的右孩子为y
-    RBTNode&lt;T&gt; y = x.right;
+        <p>####首先编写一个生成验证码图像的工具类VerificationCode<br><HR></p>
+<pre><code>public class VerificationCode{
+private int width = 100;// 生成验证码图片的宽度
+   private int height = 30;// 生成验证码图片的高度
+   private String[] fontNames = { &quot;宋体&quot;, &quot;楷体&quot;, &quot;隶书&quot;, &quot;微软雅黑&quot; };
+   private Color bgColor = new Color(255, 255, 255);// 定义验证码图片的背景颜色为白色
+   private Random random = new Random();
+   private String codes = &quot;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;
+   private String text;// 记录随机字符串
 
-    // 将 “y的左孩子” 设为 “x的右孩子”；
-    // 如果y的左孩子非空，将 “x” 设为 “y的左孩子的父亲”
-    x.right = y.left;
-    if (y.left != null)
-        y.left.parent = x;
+   /**
+    * 获取一个随意颜色
+    * 
+    * @return
+    */
+   private Color randomColor() {
+       int red = random.nextInt(150);
+       int green = random.nextInt(150);
+       int blue = random.nextInt(150);
+       return new Color(red, green, blue);
+   }
 
-    // 将 “x的父亲” 设为 “y的父亲”
-    y.parent = x.parent;
+   /**
+    * 获取一个随机字体
+    * 
+    * @return
+    */
+   private Font randomFont() {
+       String name = fontNames[random.nextInt(fontNames.length)];
+       int style = random.nextInt(4);
+       int size = random.nextInt(5) + 24;
+       return new Font(name, style, size);
+   }
 
-    if (x.parent == null) {
-        this.mRoot = y;            // 如果 “x的父亲” 是空节点，则将y设为根节点
-    } else {
-        if (x.parent.left == x)
-            x.parent.left = y;    // 如果 x是它父节点的左孩子，则将y设为“x的父节点的左孩子”
-        else
-            x.parent.right = y;    // 如果 x是它父节点的右孩子，则将y设为“x的父节点的右孩子”
+   /**
+    * 获取一个随机字符
+    * 
+    * @return
+    */
+   private char randomChar() {
+       return codes.charAt(random.nextInt(codes.length()));
+   }
+
+   /**
+    * 创建一个空白的BufferedImage对象
+    * 
+    * @return
+    */
+   private BufferedImage createImage() {
+       BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+       Graphics2D g2 = (Graphics2D) image.getGraphics();
+       g2.setColor(bgColor);// 设置验证码图片的背景颜色
+       g2.fillRect(0, 0, width, height);
+       return image;
+   }</code></pre><a id="more"></a>  
+<pre><code>public BufferedImage getImage() {
+    BufferedImage image = createImage();
+    Graphics2D g2 = (Graphics2D) image.getGraphics();
+    StringBuffer sb = new StringBuffer();
+    for (int i = 0; i &lt; 4; i++) {
+        String s = randomChar() + &quot;&quot;;
+        sb.append(s);
+        g2.setColor(randomColor());
+        g2.setFont(randomFont());
+        float x = i * width * 1.0f / 4;
+        g2.drawString(s, x, height - 8);
     }
+    this.text = sb.toString();
+    drawLine(image);
+    return image;
+}
 
-    // 将 “x” 设为 “y的左孩子”
-    y.left = x;
-    // 将 “x的父节点” 设为 “y”
-    x.parent = y;
-}</code></pre><p>左旋主要思路：1.将x的右儿子y的左儿子设为自己的右儿子（y的左儿子不为要设其父亲节点为X)，2.x的父亲节点设为y的父亲节点（为Null即为根节点），3.<br>判断x是其父节点的哪边儿子，将y设为其相同边的儿子，4.将x设为y的左儿子，x的父亲节点设为y。<br>##右旋x节点<br>/*</p>
-<pre><code> * 对红黑树的节点(y)进行右旋转
- *
- * 右旋示意图(对节点y进行左旋)：
- *            py                               py
- *           /                                /
- *          y                                x
- *         /  \      --(右旋)-.            /  \                     #
- *        x   ry                           lx   y
- *       / \                                   / \                   #
- *      lx  rx                                rx  ry
- *
+/**
+ * 绘制干扰线
+ * 
+ * @param image
  */
-private void rightRotate(RBTNode&lt;T&gt; y) {
-    // 设置x是当前节点的左孩子。
-    RBTNode&lt;T&gt; x = y.left;
-
-    // 将 “x的右孩子” 设为 “y的左孩子”；
-    // 如果&quot;x的右孩子&quot;不为空的话，将 “y” 设为 “x的右孩子的父亲”
-    y.left = x.right;
-    if (x.right != null)
-        x.right.parent = y;
-
-    // 将 “y的父亲” 设为 “x的父亲”
-    x.parent = y.parent;
-
-    if (y.parent == null) {
-        this.mRoot = x;            // 如果 “y的父亲” 是空节点，则将x设为根节点
-    } else {
-        if (y == y.parent.right)
-            y.parent.right = x;    // 如果 y是它父节点的右孩子，则将x设为“y的父节点的右孩子”
-        else
-            y.parent.left = x;    // (y是它父节点的左孩子) 将x设为“x的父节点的左孩子”
+private void drawLine(BufferedImage image) {
+    Graphics2D g2 = (Graphics2D) image.getGraphics();
+    int num = 5;
+    for (int i = 0; i &lt; num; i++) {
+        int x1 = random.nextInt(width);
+        int y1 = random.nextInt(height);
+        int x2 = random.nextInt(width);
+        int y2 = random.nextInt(height);
+        g2.setColor(randomColor());
+        g2.setStroke(new BasicStroke(1.5f));
+        g2.drawLine(x1, y1, x2, y2);
     }
+}
 
-    // 将 “y” 设为 “x的右孩子”
-    x.right = y;
+public String getText() {
+    return text;
+}
 
-    // 将 “y的父节点” 设为 “x”
-    y.parent = x;
-}</code></pre><p>右旋的主要思路：1.将x的右儿子设为y的左儿子(x的右儿子不为空的话，设其父亲节点为y)，2.y的父亲节点设为x的父亲节点（为Null即为根节点），3.<br>        判断y是其父节点的哪边儿子，将x设为其相同边的儿子，4.将y设为x的右儿子，y的父亲节点设为x。</p>
+public static void output(BufferedImage image, OutputStream out) throws IOException {
+    ImageIO.write(image, &quot;JPEG&quot;, out);
+}
+}</code></pre><p>用VerificationCode的工具类来生成一个图片的验证码和其文本，后面再登入控制器LoginController被实例化调用。</p>
+<pre><code>@RestController
+public class LoginController {
+@GetMapping(&quot;/login&quot;)
+public RespBean login() {
+    return RespBean.error(&quot;尚未登录，请登录!&quot;);
+}
+
+@GetMapping(&quot;/verifyCode&quot;)
+public void verifyCode(HttpServletRequest request, HttpServletResponse resp) throws IOException {
+    VerificationCode code = new VerificationCode();
+    BufferedImage image = code.getImage();
+    String text = code.getText();
+    HttpSession session = request.getSession(true);
+    session.setAttribute(&quot;verify_code&quot;, text);
+    VerificationCode.output(image,resp.getOutputStream());
+}
+}</code></pre><p>创建出实例对象code，获取到验证码图片image,文本text,获取访问的Session,并把验证码图发出到前端页面上。</p>
+<p>然后就是登陆的问题，因为这个项目用的是SpringSecurity，所以他的登入页面在没有设置之前是用的默认的，所以要先把verifyCode的
+请求路径添加到，不需要拦截的url里面</p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void configure(WebSecurity web) throws Exception &#123; </span><br><span class="line">     web.ignoring().antMatchers(&quot;&#x2F;css&#x2F;**&quot;, &quot;&#x2F;js&#x2F;**&quot;, &quot;&#x2F;index.html&quot;, &quot;&#x2F;img&#x2F;**&quot;, &quot;&#x2F;fonts&#x2F;**&quot;, &quot;&#x2F;favicon.ico&quot;, &quot;&#x2F;verifyCode&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>随后创建登入的拦截器LoginFilter</p>
+
+<pre><code>public class LoginFilter extends UsernamePasswordAuthenticationFilter {
+ @Autowired
+SessionRegistry sessionRegistry;
+@Override
+public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    if (!request.getMethod().equals(&quot;POST&quot;)) {
+        throw new AuthenticationServiceException(
+                &quot;Authentication method not supported: &quot; + request.getMethod());
+    }
+    String verify_code = (String) request.getSession().getAttribute(&quot;verify_code&quot;);
+    if (request.getContentType().contains(MediaType.APPLICATION_JSON_VALUE) || request.getContentType().contains(MediaType.APPLICATION_JSON_UTF8_VALUE)) {
+        Map&lt;String, String&gt; loginData = new HashMap&lt;&gt;();
+        try {
+            loginData = new ObjectMapper().readValue(request.getInputStream(), Map.class);
+        } catch (IOException e) {
+        }finally {
+            String code = loginData.get(&quot;code&quot;);
+            checkCode(response, code, verify_code);
+        }
+        String username = loginData.get(getUsernameParameter());
+        String password = loginData.get(getPasswordParameter());
+        if (username == null) {
+            username = &quot;&quot;;
+        }
+        if (password == null) {
+            password = &quot;&quot;;
+        }
+        username = username.trim();
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
+                username, password);
+        setDetails(request, authRequest);
+        Hr principal = new Hr();
+        principal.setUsername(username);
+        sessionRegistry.registerNewSession(request.getSession(true).getId(), principal);
+        return this.getAuthenticationManager().authenticate(authRequest);
+    } else {
+        checkCode(response, request.getParameter(&quot;code&quot;), verify_code);
+        return super.attemptAuthentication(request, response);
+    }
+}
+
+public void checkCode(HttpServletResponse resp, String code, String verify_code) {
+    if (code == null || verify_code == null || &quot;&quot;.equals(code) || !verify_code.toLowerCase().equals(code.toLowerCase())) {
+        //验证码不正确
+        throw new AuthenticationServiceException(&quot;验证码不正确&quot;);
+    }
+}
+}</code></pre><p>继承了UsernamePasswordAuthenticationFilter来实现，（将其的逻辑实现，变成可以接受JSON数据也可以接受正常的KEY/value的形式）先判断请求方法是否为Get，
+然后获取到我们存在Session里面的验证码文本，随后判断了请求的信息的是否为JSON类型的数据，
+将里面的JSON数据，转化成map类型存在起来，然后再比较输入的验证码和生成的验证码是否相同，
+因为这里的检验放在了用户的认证的前面，所以只有验证码正确了才会去完成认证的任务。</p><br>
+验证码成功匹配以后，进行用户的认证，先获取到，前台填入的信息，如果为null就设为“”,然后通过构造方法实例化一个 UsernamePasswordAuthenticationToken 对象，此时调用的是 UsernamePasswordAuthenticationToken 的两个参数的构造函数
+,其中 super(null) 调用的是父类的构造方法，传入的是权限集合，因为目前还没有认证通过，所以不知道有什么权限信息，这里设置为 null，然后将用户名和密码分别赋值给
+ principal 和 credentials，同样因为此时还未进行身份认证，所以 setAuthenticated(false)。
+setDetails(request, authRequest) 是将当前的请求信息设置到 UsernamePasswordAuthenticationToken 中,通过调用 getAuthenticationManager() 来获取 AuthenticationManager，通过调用它的 authenticate 方法来查找支持该
+token(UsernamePasswordAuthenticationToken) 认证方式的 provider，然后调用该 provider 的 authenticate 方法进行认证)。
+
+<p><img src="https://img2018.cnblogs.com/blog/1491727/201809/1491727-20180928210108441-1822025819.png" alt="认证流程图"></p>
 
       
 
@@ -354,7 +440,7 @@ private void rightRotate(RBTNode&lt;T&gt; y) {
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/%E7%BA%A2%E9%BB%91%E6%A0%91/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%8C%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%B8%80%EF%BC%89/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -368,18 +454,18 @@ private void rightRotate(RBTNode&lt;T&gt; y) {
   
 <nav id="article-nav">
   
-    <a href="/2020/03/30/%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/08/04/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          红黑树的自我理解学习（2）
+          微人事-登入权限（二）
         
       </div>
     </a>
   
   
-    <a href="/2020/02/27/HashMap/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">关于HashMap的一些自我学习内容</div>
+    <a href="/2020/07/31/%E5%BE%AE%E4%BA%BA%E4%BA%8B%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微人事开源项目 </div>
       <i class="icon-circle-right"></i>
     </a>
   

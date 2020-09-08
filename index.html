@@ -60,7 +60,7 @@
 			</ul>
 		</nav>
 <nav>
-    <a>总文章数 10</a>
+    <a>总文章数 12</a>
 </nav>
 		<nav class="header-smart-menu">
     		
@@ -155,7 +155,7 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-微人事-验证码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-微人事-登入权限（三）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -164,12 +164,148 @@
         <center><p>
   
     <h1 itemprop="name">
-      <a class="article-title_code_ant" href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E9%AA%8C%E8%AF%81%E7%A0%81/">微人事-登入权限，验证码（一）</a>
+      <a class="article-title_code_ant" href="/2020/08/05/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%B8%89%EF%BC%89/">微人事-登入u权限（三）</a>
     </h1>
   
 </p></center>
         
-        <a href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E9%AA%8C%E8%AF%81%E7%A0%81/" class="archive-article-date">
+        <a href="/2020/08/05/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%B8%89%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2020-08-05T06:37:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>完成了前面的类以后，我们还需要在WebSecurityConfigurerAdapter中为他们的进行配置。<br>##SecurityConfig</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">    LoginFilter loginFilter() throws Exception &#123;</span><br><span class="line">        LoginFilter loginFilter &#x3D; new LoginFilter();</span><br><span class="line">        loginFilter.setAuthenticationSuccessHandler((request, response, authentication) -&gt; &#123;</span><br><span class="line">                    response.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">                    PrintWriter out &#x3D; response.getWriter();</span><br><span class="line">                    Hr hr &#x3D; (Hr) authentication.getPrincipal();</span><br><span class="line">                    hr.setPassword(null);</span><br><span class="line">                    RespBean ok &#x3D; RespBean.ok(&quot;登录成功!&quot;, hr);</span><br><span class="line">                    String s &#x3D; new ObjectMapper().writeValueAsString(ok);</span><br><span class="line">                    out.write(s);</span><br><span class="line">                    out.flush();</span><br><span class="line">                    out.close();</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line">        loginFilter.setAuthenticationFailureHandler((request, response, exception) -&gt; &#123;</span><br><span class="line">                    response.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">                    PrintWriter out &#x3D; response.getWriter();</span><br><span class="line">                    RespBean respBean &#x3D; RespBean.error(exception.getMessage());</span><br><span class="line">                    if (exception instanceof LockedException) &#123;</span><br><span class="line">                        respBean.setMsg(&quot;账户被锁定，请联系管理员!&quot;);</span><br><span class="line">                    &#125; else if (exception instanceof CredentialsExpiredException) &#123;</span><br><span class="line">                        respBean.setMsg(&quot;密码过期，请联系管理员!&quot;);</span><br><span class="line">                    &#125; else if (exception instanceof AccountExpiredException) &#123;</span><br><span class="line">                        respBean.setMsg(&quot;账户过期，请联系管理员!&quot;);</span><br><span class="line">                    &#125; else if (exception instanceof DisabledException) &#123;</span><br><span class="line">                        respBean.setMsg(&quot;账户被禁用，请联系管理员!&quot;);</span><br><span class="line">                    &#125; else if (exception instanceof BadCredentialsException) &#123;</span><br><span class="line">                        respBean.setMsg(&quot;用户名或者密码输入错误，请重新输入!&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line">                    out.write(new ObjectMapper().writeValueAsString(respBean));</span><br><span class="line">                    out.flush();</span><br><span class="line">                    out.close();</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line">        loginFilter.setAuthenticationManager(authenticationManagerBean());</span><br><span class="line">        loginFilter.setFilterProcessesUrl(&quot;&#x2F;doLogin&quot;);</span><br><span class="line">        ConcurrentSessionControlAuthenticationStrategy sessionStrategy &#x3D; new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());</span><br><span class="line">        sessionStrategy.setMaximumSessions(1);</span><br><span class="line">        loginFilter.setSessionAuthenticationStrategy(sessionStrategy);</span><br><span class="line">        return loginFilter;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/08/05/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%B8%89%EF%BC%89/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/05/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%B8%89%EF%BC%89/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-微人事-登入权限（二）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+        
+        <center><p>
+  
+    <h1 itemprop="name">
+      <a class="article-title_code_ant" href="/2020/08/04/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%BA%8C%EF%BC%89/">微人事-登入权限（二）</a>
+    </h1>
+  
+</p></center>
+        
+        <a href="/2020/08/04/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%BA%8C%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2020-08-04T07:59:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> ##Hr类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">public class Hr implements UserDetails &#123;</span><br><span class="line">    private Integer id;</span><br><span class="line"></span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    private String phone;</span><br><span class="line"></span><br><span class="line">    private String telephone;</span><br><span class="line"></span><br><span class="line">    private String address;</span><br><span class="line"></span><br><span class="line">    private Boolean enabled;</span><br><span class="line"></span><br><span class="line">    private String username;</span><br><span class="line"></span><br><span class="line">    private String password;</span><br><span class="line"></span><br><span class="line">    private String userface;</span><br><span class="line"></span><br><span class="line">    private String remark;</span><br><span class="line">    private List&lt;Role&gt; roles;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean equals(Object o) &#123;</span><br><span class="line">        if (this &#x3D;&#x3D; o) return true;</span><br><span class="line">        if (o &#x3D;&#x3D; null || getClass() !&#x3D; o.getClass()) return false;</span><br><span class="line">        Hr hr &#x3D; (Hr) o;</span><br><span class="line">        return Objects.equals(username, hr.username);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int hashCode() &#123;</span><br><span class="line">        return Objects.hash(username);</span><br><span class="line">    &#125;</span><br><span class="line"> @Override</span><br><span class="line">    public boolean isAccountNonExpired() &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean isAccountNonLocked() &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean isCredentialsNonExpired() &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean isEnabled() &#123;</span><br><span class="line">        return enabled;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    @JsonIgnore</span><br><span class="line">&#x2F;&#x2F;    getAuthorities 方法是获取用户角色信息。</span><br><span class="line">&#x2F;&#x2F;    GrantedAuthority权限列表，SimpleGrantedAuthority实现的接口</span><br><span class="line">    public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() &#123;</span><br><span class="line">        List&lt;SimpleGrantedAuthority&gt; authorities &#x3D; new ArrayList&lt;&gt;(roles.size());</span><br><span class="line">        for (Role role : roles) &#123;</span><br><span class="line">            authorities.add(new SimpleGrantedAuthority(role.getName()));</span><br><span class="line">        &#125;</span><br><span class="line">        return authorities;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/08/04/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%BA%8C%EF%BC%89/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/04/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%BA%8C%EF%BC%89/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-微人事-登入权限，验证码（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+        
+        <center><p>
+  
+    <h1 itemprop="name">
+      <a class="article-title_code_ant" href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%8C%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%B8%80%EF%BC%89/">微人事-登入权限，验证码（一）</a>
+    </h1>
+  
+</p></center>
+        
+        <a href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%8C%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
   	<time datetime="2020-08-02T06:56:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-02</time>
 </a>
         
@@ -233,7 +369,7 @@ private int width = 100;// 生成验证码图片的宽度
        return image;
    }</code></pre>
         
-          <a class="article-more-a" href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E9%AA%8C%E8%AF%81%E7%A0%81/#more">more >></a>
+          <a class="article-more-a" href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%8C%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%B8%80%EF%BC%89/#more">more >></a>
         
       
 
@@ -246,7 +382,7 @@ private int width = 100;// 生成验证码图片的宽度
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E9%AA%8C%E8%AF%81%E7%A0%81/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/08/02/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%8C%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%88%E4%B8%80%EF%BC%89/">展开全文 >></a>
         </p>
       
 
@@ -546,7 +682,7 @@ private int width = 100;// 生成验证码图片的宽度
 
 
   
-    <article id="post-nihao" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-红黑树的自我理解学习（2）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -555,12 +691,12 @@ private int width = 100;// 生成验证码图片的宽度
         <center><p>
   
     <h1 itemprop="name">
-      <a class="article-title_code_ant" href="/2020/03/30/nihao/">红黑树的自我理解学习（2）</a>
+      <a class="article-title_code_ant" href="/2020/03/30/%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89/">红黑树的自我理解学习（2）</a>
     </h1>
   
 </p></center>
         
-        <a href="/2020/03/30/nihao/" class="archive-article-date">
+        <a href="/2020/03/30/%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89/" class="archive-article-date">
   	<time datetime="2020-03-30T07:00:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
 </a>
         
@@ -586,7 +722,7 @@ private int width = 100;// 生成验证码图片的宽度
         node.color = BLACK;
 }</code></pre><p>//    将节点设为红色</p>
         
-          <a class="article-more-a" href="/2020/03/30/nihao/#more">more >></a>
+          <a class="article-more-a" href="/2020/03/30/%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89/#more">more >></a>
         
       
 
@@ -599,7 +735,7 @@ private int width = 100;// 生成验证码图片的宽度
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/30/nihao/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/30/%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89/">展开全文 >></a>
         </p>
       
 
@@ -775,151 +911,10 @@ Node1 next;</code></pre><p>}</p>
 
 
   
-    <article id="post-对二叉树的学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-        
-        <center><p>
   
-    <h1 itemprop="name">
-      <a class="article-title_code_ant" href="/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/">对二叉树的学习</a>
-    </h1>
-  
-</p></center>
-        
-        <a href="/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-02-23T05:23:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>内容仅为自己复习使用</p>
-<h2 id="节点类"><a href="#节点类" class="headerlink" title="节点类"></a>节点类</h2><p>static final class Entry&lt;T extends Comparable<T>&gt;<br>{</p>
-<pre><code> //保存的数据
- private T item;
- //左子树
- private Entry&lt;T&gt; left;
- //右子树
- private Entry&lt;T&gt; right;
- //父节点
- private Entry&lt;T&gt; parent;
- Entry(T item,Entry&lt;T&gt; parent){
-     this.item = item;
-     this.parent = parent;     
-}</code></pre><p>}<br>   一棵树的节点类要有数据，左右节点树和父亲节点。</p>
-        
-          <a class="article-more-a" href="/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/23/%E5%AF%B9%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第一篇博客文章" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-        
-        <center><p>
-  
-    <h1 itemprop="name">
-      <a class="article-title_code_ant" href="/2020/01/14/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">第一篇博客文章</a>
-    </h1>
-  
-</p></center>
-        
-        <a href="/2020/01/14/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="archive-article-date">
-  	<time datetime="2020-01-14T06:11:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>主要是重新整理了一下对于主题的调整和学习，对于yilia主题大部分内容都在<br><a href="https://www.cnblogs.com/aoguai/p/11781505.html上有很多的提示。" target="_blank" rel="noopener">https://www.cnblogs.com/aoguai/p/11781505.html上有很多的提示。</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/14/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 

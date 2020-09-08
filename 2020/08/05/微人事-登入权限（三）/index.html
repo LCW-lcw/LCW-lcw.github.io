@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>红黑树的自我理解学习（1） | Hexo</title>
+  <title>微人事-登入u权限（三） | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##红黑树的特性性质1：节点是红色或黑色。性质2：根节点是黑色。性质3：每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)性质4：从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 ##红黑树的节点类    public class RBTNode&lt;T extends Comparable&gt; {        boolean color;">
+  <meta name="description" content="完成了前面的类以后，我们还需要在WebSecurityConfigurerAdapter中为他们的进行配置。##SecurityConfig 123456789101112131415161718192021222324252627282930313233343536373839404142@Bean    LoginFilter loginFilter() throws Exception &amp;#">
 <meta property="og:type" content="article">
-<meta property="og:title" content="红黑树的自我理解学习（1）">
-<meta property="og:url" content="http://yoursite.com/2020/03/23/%E7%BA%A2%E9%BB%91%E6%A0%91/index.html">
+<meta property="og:title" content="微人事-登入u权限（三）">
+<meta property="og:url" content="http://yoursite.com/2020/08/05/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%B8%89%EF%BC%89/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="##红黑树的特性性质1：节点是红色或黑色。性质2：根节点是黑色。性质3：每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)性质4：从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。 ##红黑树的节点类    public class RBTNode&lt;T extends Comparable&gt; {        boolean color;">
+<meta property="og:description" content="完成了前面的类以后，我们还需要在WebSecurityConfigurerAdapter中为他们的进行配置。##SecurityConfig 123456789101112131415161718192021222324252627282930313233343536373839404142@Bean    LoginFilter loginFilter() throws Exception &amp;#">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-03-23T05:03:28.000Z">
-<meta property="article:modified_time" content="2020-03-30T07:20:15.934Z">
+<meta property="article:published_time" content="2020-08-05T06:37:51.000Z">
+<meta property="article:modified_time" content="2020-08-09T07:39:36.080Z">
 <meta property="article:author" content="LCW">
 <meta name="twitter:card" content="summary">
   
@@ -157,7 +157,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-红黑树" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-微人事-登入权限（三）" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -166,115 +166,27 @@
         <center><p>
   
     <h1 class="article-title_code_ant" itemprop="name">
-      红黑树的自我理解学习（1）
+      微人事-登入u权限（三）
     </h1>
   
 </p></center>
         
-        <a href="/2020/03/23/%E7%BA%A2%E9%BB%91%E6%A0%91/" class="archive-article-date">
-  	<time datetime="2020-03-23T05:03:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+        <a href="/2020/08/05/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%B8%89%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2020-08-05T06:37:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##红黑树的特性<br>性质1：节点是红色或黑色。<br>性质2：根节点是黑色。<br>性质3：每个红色节点的两个子节点都是黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)<br>性质4：从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点。</p>
-<p>##红黑树的节点类<br>    public class RBTNode&lt;T extends Comparable<T>&gt; {<br>        boolean color;        // 颜色<br>        T key;                // 关键字(键值)<br>        RBTNode<T> left;    // 左孩子<br>        RBTNode<T> right;    // 右孩子<br>        RBTNode<T> parent;    // 父结点</p>
-<pre><code>public RBTNode(T key, boolean color, RBTNode&lt;T&gt; parent, RBTNode&lt;T&gt; left, RBTNode&lt;T&gt; right) {
-    this.key = key;
-    this.color = color;
-    this.parent = parent;
-    this.left = left;
-    this.right = right;
-}</code></pre><a id="more"></a>
-<p>##RBTree类<br>public class RBTree&lt;T extends Comparable<T>&gt; {</p>
-<pre><code>private RBTNode&lt;T&gt; mRoot;    // 根结点
-private static final boolean RED   = false;
-private static final boolean BLACK = true;   
-    public RBTree() {
-        mRoot=null;
-    }</code></pre><p>##左旋节点x<br> /*</p>
-<pre><code> * 对红黑树的节点(x)进行左旋转
- *
- * 左旋示意图(对节点x进行左旋)：
- *      px                              px
- *     /                               /
- *    x                               y
- *   /  \      --(左旋)-.           / \                #
- *  lx   y                          x  ry
- *     /   \                       /  \
- *    ly   ry                     lx  ly
- *
- *
- */
-private void leftRotate(RBTNode&lt;T&gt; x) {
-    // 设置x的右孩子为y
-    RBTNode&lt;T&gt; y = x.right;
-
-    // 将 “y的左孩子” 设为 “x的右孩子”；
-    // 如果y的左孩子非空，将 “x” 设为 “y的左孩子的父亲”
-    x.right = y.left;
-    if (y.left != null)
-        y.left.parent = x;
-
-    // 将 “x的父亲” 设为 “y的父亲”
-    y.parent = x.parent;
-
-    if (x.parent == null) {
-        this.mRoot = y;            // 如果 “x的父亲” 是空节点，则将y设为根节点
-    } else {
-        if (x.parent.left == x)
-            x.parent.left = y;    // 如果 x是它父节点的左孩子，则将y设为“x的父节点的左孩子”
-        else
-            x.parent.right = y;    // 如果 x是它父节点的右孩子，则将y设为“x的父节点的右孩子”
-    }
-
-    // 将 “x” 设为 “y的左孩子”
-    y.left = x;
-    // 将 “x的父节点” 设为 “y”
-    x.parent = y;
-}</code></pre><p>左旋主要思路：1.将x的右儿子y的左儿子设为自己的右儿子（y的左儿子不为要设其父亲节点为X)，2.x的父亲节点设为y的父亲节点（为Null即为根节点），3.<br>判断x是其父节点的哪边儿子，将y设为其相同边的儿子，4.将x设为y的左儿子，x的父亲节点设为y。<br>##右旋x节点<br>/*</p>
-<pre><code> * 对红黑树的节点(y)进行右旋转
- *
- * 右旋示意图(对节点y进行左旋)：
- *            py                               py
- *           /                                /
- *          y                                x
- *         /  \      --(右旋)-.            /  \                     #
- *        x   ry                           lx   y
- *       / \                                   / \                   #
- *      lx  rx                                rx  ry
- *
- */
-private void rightRotate(RBTNode&lt;T&gt; y) {
-    // 设置x是当前节点的左孩子。
-    RBTNode&lt;T&gt; x = y.left;
-
-    // 将 “x的右孩子” 设为 “y的左孩子”；
-    // 如果&quot;x的右孩子&quot;不为空的话，将 “y” 设为 “x的右孩子的父亲”
-    y.left = x.right;
-    if (x.right != null)
-        x.right.parent = y;
-
-    // 将 “y的父亲” 设为 “x的父亲”
-    x.parent = y.parent;
-
-    if (y.parent == null) {
-        this.mRoot = x;            // 如果 “y的父亲” 是空节点，则将x设为根节点
-    } else {
-        if (y == y.parent.right)
-            y.parent.right = x;    // 如果 y是它父节点的右孩子，则将x设为“y的父节点的右孩子”
-        else
-            y.parent.left = x;    // (y是它父节点的左孩子) 将x设为“x的父节点的左孩子”
-    }
-
-    // 将 “y” 设为 “x的右孩子”
-    x.right = y;
-
-    // 将 “y的父节点” 设为 “x”
-    y.parent = x;
-}</code></pre><p>右旋的主要思路：1.将x的右儿子设为y的左儿子(x的右儿子不为空的话，设其父亲节点为y)，2.y的父亲节点设为x的父亲节点（为Null即为根节点），3.<br>        判断y是其父节点的哪边儿子，将x设为其相同边的儿子，4.将y设为x的右儿子，y的父亲节点设为x。</p>
+        <p>完成了前面的类以后，我们还需要在WebSecurityConfigurerAdapter中为他们的进行配置。<br>##SecurityConfig</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">    LoginFilter loginFilter() throws Exception &#123;</span><br><span class="line">        LoginFilter loginFilter &#x3D; new LoginFilter();</span><br><span class="line">        loginFilter.setAuthenticationSuccessHandler((request, response, authentication) -&gt; &#123;</span><br><span class="line">                    response.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">                    PrintWriter out &#x3D; response.getWriter();</span><br><span class="line">                    Hr hr &#x3D; (Hr) authentication.getPrincipal();</span><br><span class="line">                    hr.setPassword(null);</span><br><span class="line">                    RespBean ok &#x3D; RespBean.ok(&quot;登录成功!&quot;, hr);</span><br><span class="line">                    String s &#x3D; new ObjectMapper().writeValueAsString(ok);</span><br><span class="line">                    out.write(s);</span><br><span class="line">                    out.flush();</span><br><span class="line">                    out.close();</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line">        loginFilter.setAuthenticationFailureHandler((request, response, exception) -&gt; &#123;</span><br><span class="line">                    response.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">                    PrintWriter out &#x3D; response.getWriter();</span><br><span class="line">                    RespBean respBean &#x3D; RespBean.error(exception.getMessage());</span><br><span class="line">                    if (exception instanceof LockedException) &#123;</span><br><span class="line">                        respBean.setMsg(&quot;账户被锁定，请联系管理员!&quot;);</span><br><span class="line">                    &#125; else if (exception instanceof CredentialsExpiredException) &#123;</span><br><span class="line">                        respBean.setMsg(&quot;密码过期，请联系管理员!&quot;);</span><br><span class="line">                    &#125; else if (exception instanceof AccountExpiredException) &#123;</span><br><span class="line">                        respBean.setMsg(&quot;账户过期，请联系管理员!&quot;);</span><br><span class="line">                    &#125; else if (exception instanceof DisabledException) &#123;</span><br><span class="line">                        respBean.setMsg(&quot;账户被禁用，请联系管理员!&quot;);</span><br><span class="line">                    &#125; else if (exception instanceof BadCredentialsException) &#123;</span><br><span class="line">                        respBean.setMsg(&quot;用户名或者密码输入错误，请重新输入!&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line">                    out.write(new ObjectMapper().writeValueAsString(respBean));</span><br><span class="line">                    out.flush();</span><br><span class="line">                    out.close();</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line">        loginFilter.setAuthenticationManager(authenticationManagerBean());</span><br><span class="line">        loginFilter.setFilterProcessesUrl(&quot;&#x2F;doLogin&quot;);</span><br><span class="line">        ConcurrentSessionControlAuthenticationStrategy sessionStrategy &#x3D; new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());</span><br><span class="line">        sessionStrategy.setMaximumSessions(1);</span><br><span class="line">        loginFilter.setSessionAuthenticationStrategy(sessionStrategy);</span><br><span class="line">        return loginFilter;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>loginFilter拦截配置，为他配置成功和失败的路径反应，loginFilter.setAuthenticationManager(authenticationManagerBean())开启authenticationManagerBean，<br>ConcurrentSessionControlAuthenticationStrategy用来设置当前用户可以同时登入的数量，设为1.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Override</span><br><span class="line">protected void configure(AuthenticationManagerBuilder auth) throws Exception &#123;</span><br><span class="line">    auth.userDetailsService(hrService);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>开启自己定义的hrService;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">    protected void configure(HttpSecurity http) throws Exception &#123;</span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">                .withObjectPostProcessor(new ObjectPostProcessor&lt;FilterSecurityInterceptor&gt;() &#123;</span><br><span class="line">                    @Override</span><br><span class="line">                    public &lt;O extends FilterSecurityInterceptor&gt; O postProcess(O object) &#123;</span><br><span class="line">                        object.setAccessDecisionManager(customUrlDecisionManager);</span><br><span class="line">                        object.setSecurityMetadataSource(customFilterInvocationSecurityMetadataSource);</span><br><span class="line">                        return object;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .and()</span><br><span class="line">                .logout()</span><br><span class="line">                .logoutSuccessHandler((req, resp, authentication) -&gt; &#123;</span><br><span class="line">                            resp.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">                            PrintWriter out &#x3D; resp.getWriter();</span><br><span class="line">                            out.write(new ObjectMapper().writeValueAsString(RespBean.ok(&quot;注销成功!&quot;)));</span><br><span class="line">                            out.flush();</span><br><span class="line">                            out.close();</span><br><span class="line">                        &#125;</span><br><span class="line">                )</span><br><span class="line">                .permitAll()</span><br><span class="line">                .and()</span><br><span class="line">                .csrf().disable().exceptionHandling()</span><br><span class="line">                &#x2F;&#x2F;没有认证时，在这里处理结果，不要重定向</span><br><span class="line">                .authenticationEntryPoint((req, resp, authException) -&gt; &#123;</span><br><span class="line">                            resp.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">                            resp.setStatus(401);</span><br><span class="line">                            PrintWriter out &#x3D; resp.getWriter();</span><br><span class="line">                            RespBean respBean &#x3D; RespBean.error(&quot;访问失败!&quot;);</span><br><span class="line">                            if (authException instanceof InsufficientAuthenticationException) &#123;</span><br><span class="line">                                respBean.setMsg(&quot;请求失败，请联系管理员!&quot;);</span><br><span class="line">                            &#125;</span><br><span class="line">                            out.write(new ObjectMapper().writeValueAsString(respBean));</span><br><span class="line">                            out.flush();</span><br><span class="line">                            out.close();</span><br><span class="line">                        &#125;</span><br><span class="line">                );</span><br><span class="line">        http.addFilterAt(new ConcurrentSessionFilter(sessionRegistry(), event -&gt; &#123;</span><br><span class="line">            HttpServletResponse resp &#x3D; event.getResponse();</span><br><span class="line">            resp.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">            resp.setStatus(401);</span><br><span class="line">            PrintWriter out &#x3D; resp.getWriter();</span><br><span class="line">            out.write(new ObjectMapper().writeValueAsString(RespBean.error(&quot;您已在另一台设备登录，本次登录已下线!&quot;)));</span><br><span class="line">            out.flush();</span><br><span class="line">            out.close();</span><br><span class="line">        &#125;), ConcurrentSessionFilter.class);</span><br><span class="line">        http.addFilterAt(loginFilter(), UsernamePasswordAuthenticationFilter.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先将我们定义的customUrlDecisionManager和customFilterInvocationSecurityMetadataSource注入进去了，这样请求就会经过我们刚才的配置的过滤器中<br>。AuthenticationEntryPoint 用来解决匿名用户访问无权限资源时的异常（AccessDeineHandler 用来解决认证过的用户访问无权限资源时的异常），再设置Session同步拦截器，<br>，设置loginFilter拦截器在UsernamePasswordAuthenticationFilter拦截器的前面。</p>
 
       
 
@@ -354,7 +266,7 @@ private void rightRotate(RBTNode&lt;T&gt; y) {
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/23/%E7%BA%A2%E9%BB%91%E6%A0%91/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/08/05/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%B8%89%EF%BC%89/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -368,18 +280,9 @@ private void rightRotate(RBTNode&lt;T&gt; y) {
   
 <nav id="article-nav">
   
-    <a href="/2020/03/30/%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          红黑树的自我理解学习（2）
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/02/27/HashMap/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">关于HashMap的一些自我学习内容</div>
+    <a href="/2020/08/04/%E5%BE%AE%E4%BA%BA%E4%BA%8B-%E7%99%BB%E5%85%A5%E6%9D%83%E9%99%90%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微人事-登入权限（二）</div>
       <i class="icon-circle-right"></i>
     </a>
   
